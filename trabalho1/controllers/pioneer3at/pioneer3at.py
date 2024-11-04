@@ -85,12 +85,12 @@ def gaussian(x, mu, sigma):
 # Initialize Braitenberg coefficients
 braitenberg_coefficients = [gaussian(i, half_width, lms291_width / 5) for i in range(lms291_width)]
 
-def rotate_180():
+def rotate_90():
     front_left_wheel.setVelocity(0.5 * MAX_SPEED)
     front_right_wheel.setVelocity(-0.5 * MAX_SPEED)
     back_left_wheel.setVelocity(0.5 * MAX_SPEED)
     back_right_wheel.setVelocity(-0.5 * MAX_SPEED)
-    robot.step(TIME_STEP * 50)  # Ajuste o tempo conforme necessário
+    robot.step(TIME_STEP * 25)  # Ajuste o tempo conforme necessário
 
 # Control loop
 while robot.step(TIME_STEP) != -1:
@@ -127,8 +127,8 @@ while robot.step(TIME_STEP) != -1:
 
     if obstacle > OBSTACLE_THRESHOLD and wheel_weight_total[0] > WHEEL_WEIGHT_THRESHOLD and wheel_weight_total[1] > WHEEL_WEIGHT_THRESHOLD:
         # Condition to perform a 180-degree rotation if the robot is stuck
-        print("Large obstacle detected; performing 180-degree rotation.")
-        rotate_180()
+        print("Large obstacle detected; performing 90-degree rotation.")
+        rotate_90()
         continue  # Skip to the next iteration after rotation
 
     # Compute speed according to obstacle information
