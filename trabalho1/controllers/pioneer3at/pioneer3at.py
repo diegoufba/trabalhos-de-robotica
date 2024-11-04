@@ -1,17 +1,3 @@
-# Copyright 1996-2023 Cyberbotics Ltd.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 from controller import Robot, DistanceSensor,Motor, Lidar
 import math
 
@@ -19,21 +5,14 @@ import math
 TIME_STEP = 32
 MAX_SPEED = 6.4
 CRUISING_SPEED = 5.0
-OBSTACLE_THRESHOLD = 0.1
-# OBSTACLE_THRESHOLD = 0.4
+OBSTACLE_THRESHOLD = 0.1 # Lidar
 DECREASE_FACTOR = 0.9
 BACK_SLOWDOWN = 0.9
 
 N_SONAR_SENSORS = 16
-MIN_DISTANCE = 1.0
-WHEEL_WEIGHT_THRESHOLD = 100
+MIN_DISTANCE = 1.0 # Sonar
+WHEEL_WEIGHT_THRESHOLD = 100 # Sonar
 
-# Estados do robô
-FORWARD = 0
-LEFT = 1
-RIGHT = 2
-
-# Main function
 robot = Robot()
 
 # Get wheels
@@ -55,7 +34,7 @@ class SonarSensor:
         self.device_tag = device_tag
         self.wheel_weight = wheel_weight
 
-# Configura os sensores sonar
+# Configure Sonar Sensors
 sonar_sensors = []
 for i in range(N_SONAR_SENSORS):
     sensor_name = f"so{i}"
@@ -125,35 +104,32 @@ while robot.step(TIME_STEP) != -1:
     # Overall front obstacle
     obstacle = left_obstacle + right_obstacle
 
-    if obstacle > OBSTACLE_THRESHOLD and wheel_weight_total[0] > WHEEL_WEIGHT_THRESHOLD and wheel_weight_total[1] > WHEEL_WEIGHT_THRESHOLD:
-        # Condition to perform a 180-degree rotation if the robot is stuck
-        print("Large obstacle detected; performing 90-degree rotation.")
-        rotate_90()
-        continue  # Skip to the next iteration after rotation
-
-    # Compute speed according to obstacle information
     # Ajusta a velocidade com base no LIDAR
     if obstacle > OBSTACLE_THRESHOLD:
+        print('Usando Lidar')
         speed_factor = (1.0 - DECREASE_FACTOR * obstacle) * MAX_SPEED / obstacle
         front_left_speed = speed_factor * left_obstacle
         front_right_speed = speed_factor * right_obstacle
         back_left_speed = BACK_SLOWDOWN * front_left_speed
         back_right_speed = BACK_SLOWDOWN * front_right_speed
-
-        # Verifica dados do sonar para ajustes de direção
+    else:
+        # Se o Lidar falhar usa o Sonar
         if wheel_weight_total[0] > WHEEL_WEIGHT_THRESHOLD:  # Objeto à direita
+            print('Usando Sonar')
             front_left_speed = 0.7 * MAX_SPEED
             front_right_speed = -0.7 * MAX_SPEED
             back_left_speed = BACK_SLOWDOWN * front_left_speed
             back_right_speed = BACK_SLOWDOWN * front_right_speed
         elif wheel_weight_total[1] > WHEEL_WEIGHT_THRESHOLD:  # Objeto à esquerda
+            print('Usando Sonar')
             front_left_speed = -0.7 * MAX_SPEED
             front_right_speed = 0.7 * MAX_SPEED
             back_left_speed = BACK_SLOWDOWN * front_left_speed
             back_right_speed = BACK_SLOWDOWN * front_right_speed
-    else:
-        back_left_speed = back_right_speed = CRUISING_SPEED
-        front_left_speed = front_right_speed = CRUISING_SPEED
+        else:
+            # Sem obstaculos
+            back_left_speed = back_right_speed = CRUISING_SPEED
+            front_left_speed = front_right_speed = CRUISING_SPEED
 
     # Set actuator velocities
     front_left_wheel.setVelocity(front_left_speed)

@@ -10,15 +10,15 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.13823262432804523 0.936945519363587 -0.32097482037673863 0.8616756797143454
-  position -19.34209824065316 3.014044566118134 25.442401691068778
+  orientation 0.04384880277831732 0.9425874219586372 -0.33106832294902255 0.2791348349022347
+  position -43.8706667743674 1.8915421492228137 15.249461509818287
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 RectangleArena {
-  floorSize 20 20
+  floorSize 40 40
   wallHeight 0.6
 }
 Wall {
@@ -26,7 +26,12 @@ Wall {
   name "wall(2)"
 }
 Wall {
-  translation 4.17 -6.41 0
+  translation 0.976602 -0.228244 -2.13163e-14
+  name "wall(1)"
+  size 0.2 1 0.3
+}
+Wall {
+  translation -0.878068 -6.15281 1.42109e-14
   name "wall(3)"
 }
 Pioneer3at {
@@ -40,12 +45,4 @@ Pioneer3at {
       translation 0.18 0 0.34
     }
   ]
-}
-Wall {
-  translation 1.26 0 0
-  size 0.2 5 2.4
-}
-Wall {
-  translation -0.08 4.24 0
-  name "wall(1)"
 }
