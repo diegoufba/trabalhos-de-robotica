@@ -1,0 +1,51 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/adept/pioneer3/protos/Pioneer3at.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/devices/sick/protos/SickLms291.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/apartment_structure/protos/Wall.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.13823262432804523 0.936945519363587 -0.32097482037673863 0.8616756797143454
+  position -19.34209824065316 3.014044566118134 25.442401691068778
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 20 20
+  wallHeight 0.6
+}
+Wall {
+  translation 4.17 6.42 0
+  name "wall(2)"
+}
+Wall {
+  translation 4.17 -6.41 0
+  name "wall(3)"
+}
+Pioneer3at {
+  translation -2.782 -0.247055 1.40333e-13
+  controller "pioneer3at"
+  controllerArgs [
+    ""
+  ]
+  extensionSlot [
+    SickLms291 {
+      translation 0.18 0 0.34
+    }
+  ]
+}
+Wall {
+  translation 1.26 0 0
+  size 0.2 5 2.4
+}
+Wall {
+  translation -0.08 4.24 0
+  name "wall(1)"
+}
