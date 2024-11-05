@@ -1,5 +1,6 @@
 from controller import Robot, DistanceSensor,Motor, Lidar
 import math
+import matplotlib.pyplot as plt
 
 # Constants
 TIME_STEP = 32
@@ -68,6 +69,15 @@ braitenberg_coefficients = [gaussian(i, half_width, lms291_width / 5) for i in r
 gps = robot.getDevice("gps")
 gps.enable(TIME_STEP)
 
+# Initialize position tracking graph
+xGraph = []
+yGraph = []
+
+def update_graph(x, y):
+    # updating the data
+    xGraph.append(x)
+    yGraph.append(y)
+
 def rotate_90():
     front_left_wheel.setVelocity(0.5 * MAX_SPEED)
     front_right_wheel.setVelocity(-0.5 * MAX_SPEED)
@@ -76,10 +86,37 @@ def rotate_90():
     robot.step(TIME_STEP * 25)  # Ajuste o tempo conforme necessário
 
 pingTiming = 0
+graphTiming = 0
+graphGenerationTiming = 0
+graphCount = 1
 checkStuck = []
+xGraph = []
+yGraph = []
 # Control loop
 while robot.step(TIME_STEP) != -1:
-    
+
+    if graphTiming >= TIME_STEP*10: #Registra a posição a cada 10 steps
+        pos = gps.getValues()
+        pos = [round(pos[0],2), round(pos[1],2), round(pos[2],2)]
+        
+        update_graph(pos[0], pos[1])
+        graphTiming = 0
+        
+    else:
+        graphTiming += TIME_STEP
+        
+    if graphGenerationTiming >= 120000: #gera gráfico a cada 120s
+        fig, ax = plt.subplots()
+        ax.set_xlim([-20, 20])
+        ax.set_ylim([-20, 20])
+        ax.set_title(f"Movimentação Pioneer 3at - Gráfico {graphCount}")
+        graph = ax.plot(xGraph, yGraph, color='black')[0]
+        plt.show()
+        graphGenerationTiming = 0
+        graphCount += 1
+    else:
+        graphGenerationTiming += TIME_STEP
+        
     if pingTiming >= 5000:
         pos = gps.getValues()
         pos = [round(pos[0],2), round(pos[1],2), round(pos[2],2)]
