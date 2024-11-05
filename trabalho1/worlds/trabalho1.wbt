@@ -6,33 +6,171 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/adept/pioneer3/protos/Pioneer3at.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/devices/sick/protos/SickLms291.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/apartment_structure/protos/Wall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/Roughcast.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/rocks/protos/Rock.proto"
 
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.04384880277831732 0.9425874219586372 -0.33106832294902255 0.2791348349022347
-  position -43.8706667743674 1.8915421492228137 15.249461509818287
+  orientation -0.2624416614404884 0.8379377032332607 0.47852354157400045 1.1590921662311056
+  position -35.08357773311725 -24.13728600340187 44.87998586027119
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 RectangleArena {
+  translation 1.08211 0.0449934 3.55271e-15
   floorSize 40 40
   wallHeight 0.6
 }
-Wall {
-  translation 4.17 6.42 0
-  name "wall(2)"
+Rock {
+  translation -2.59298 13.7255 2.66454e-15
+  name "rock(1)"
+  scale 8
+}
+Rock {
+  translation -13.3424 -5.18211 2.66454e-15
+  name "rock(6)"
+  scale 8
+}
+Rock {
+  translation 13.6448 7.51824 2.66454e-15
+  name "rock(7)"
+  scale 8
+}
+Rock {
+  translation 7.20095 12.4742 2.66454e-15
+  name "rock(4)"
+  scale 8
+}
+Rock {
+  translation 15.0871 -2.84622 2.66454e-15
+  name "rock(5)"
+  scale 8
+}
+Rock {
+  translation 5.50568 3.25455 2.66454e-15
+  name "rock(8)"
+  scale 8
 }
 Wall {
-  translation 0.976602 -0.228244 -2.13163e-14
+  translation 2.53575 -14.3389 7.4607e-14
   name "wall(1)"
   size 0.2 1 0.3
+  appearance Roughcast {
+    colorOverride 0 1 0
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
 }
 Wall {
-  translation -0.878068 -6.15281 1.42109e-14
+  translation -13.6692 3.51364 7.4607e-14
+  name "wall(5)"
+  size 0.2 1 0.3
+  appearance Roughcast {
+    colorOverride 0 1 0
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
+}
+Wall {
+  translation 0.460685 5.01695 7.4607e-14
+  name "wall(6)"
+  size 0.2 1 0.3
+  appearance Roughcast {
+    colorOverride 0 1 0
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
+}
+Wall {
+  translation 12.214 -9.3481 7.63834e-14
+  name "wall(2)"
+  size 0.2 1 0.3
+  appearance Roughcast {
+    colorOverride 0 1 0
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
+}
+Wall {
+  translation -12.6697 10.0435 -3.4106e-13
   name "wall(3)"
+  appearance Roughcast {
+    colorOverride 0 0 1
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
+}
+Wall {
+  translation -8.8968 -11.4693 3.55272e-14
+  name "wall(7)"
+  appearance Roughcast {
+    colorOverride 0 0 1
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
+}
+Wall {
+  translation 18.2363 -17.4729 8.88183e-15
+  rotation 0 0 1 -0.785395307179586
+  name "wall(4)"
+  appearance Roughcast {
+    colorOverride 0 0 1
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
+}
+Wall {
+  translation -15.6318 -17.0184 1.24522e-12
+  rotation 0 0 1 0.785401
+  name "wall(9)"
+  appearance Roughcast {
+    colorOverride 0 0 1
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
+}
+Wall {
+  translation 17.7136 16.5935 1.2168e-12
+  rotation 0 0 1 0.785401
+  name "wall(11)"
+  appearance Roughcast {
+    colorOverride 0 0 1
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
+}
+Wall {
+  translation -16.9394 16.7835 1.59873e-14
+  rotation 0 0 1 -0.785395307179586
+  name "wall(10)"
+  appearance Roughcast {
+    colorOverride 0 0 1
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
+}
+Wall {
+  translation 0.19469 -5.7639 1.42109e-14
+  name "wall(8)"
+  appearance Roughcast {
+    colorOverride 0 0 1
+    textureTransform TextureTransform {
+      scale 2.4 1
+    }
+  }
 }
 Pioneer3at {
   translation -2.782 -0.247055 1.40333e-13
@@ -45,4 +183,17 @@ Pioneer3at {
       translation 0.18 0 0.34
     }
   ]
+}
+Rock {
+  translation 4.10368 -3.73394 -1.4000000000000001
+  scale 8
+}
+Rock {
+  name "rock(2)"
+  scale 8
+}
+Rock {
+  translation -8.27621 8.20092 7.10543e-15
+  name "rock(3)"
+  scale 8
 }
