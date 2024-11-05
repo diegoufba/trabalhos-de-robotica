@@ -64,6 +64,10 @@ def gaussian(x, mu, sigma):
 # Initialize Braitenberg coefficients
 braitenberg_coefficients = [gaussian(i, half_width, lms291_width / 5) for i in range(lms291_width)]
 
+# Initialize GPS
+gps = robot.getDevice("gps")
+gps.enable(TIME_STEP)
+
 def rotate_90():
     front_left_wheel.setVelocity(0.5 * MAX_SPEED)
     front_right_wheel.setVelocity(-0.5 * MAX_SPEED)
@@ -71,8 +75,33 @@ def rotate_90():
     back_right_wheel.setVelocity(-0.5 * MAX_SPEED)
     robot.step(TIME_STEP * 25)  # Ajuste o tempo conforme necessário
 
+pingTiming = 0
+checkStuck = []
 # Control loop
 while robot.step(TIME_STEP) != -1:
+    
+    if pingTiming >= 5000:
+        pos = gps.getValues()
+        pos = [round(pos[0],2), round(pos[1],2), round(pos[2],2)]
+        print("----- Ping position -----")
+        print("X:", pos[0], " Y:", pos[1], " Z:", pos[2])
+        pingTiming = 0
+        checkStuck.append(pos)
+        
+        if len(checkStuck) == 4:
+            if (checkStuck[0] == checkStuck[1]) and (checkStuck[1] == checkStuck[2]):
+                print("WARNING: The robot is stuck, terminating execution")
+                front_left_wheel.setVelocity(0.0)
+                front_right_wheel.setVelocity(0.0)
+                back_left_wheel.setVelocity(0.0)
+                back_right_wheel.setVelocity(0.0)
+                break
+            else:
+                print("Not stuck")
+                checkStuck = [pos]         
+    else:
+        pingTiming += TIME_STEP
+
     wheel_weight_total = [0.0, 0.0]
 
     # Atualiza as leituras dos sensores e calcula o peso nas rodas
